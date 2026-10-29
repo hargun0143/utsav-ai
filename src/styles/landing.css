@@ -1,0 +1,448 @@
+.landing-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+}
+
+.landing-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  max-width: 1360px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 3rem 3.5rem;
+  gap: 3.5rem;
+}
+
+.landing-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.wordmark {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  margin-bottom: 2.5rem;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 6.5vw, 6rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  margin-bottom: 1.75rem;
+}
+
+.hero-line {
+  display: block;
+  opacity: 0;
+  animation: lineRise 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-line-1 {
+  animation-delay: 0.1s;
+}
+
+.hero-line-2 {
+  animation-delay: 0.22s;
+}
+
+.hero-plan {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-marigold);
+}
+
+.hero-description {
+  color: var(--color-text-muted);
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
+  line-height: 1.6;
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+}
+
+.btn-start {
+  background-color: var(--color-marigold);
+  color: #0d0c0b;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.875rem 2rem;
+  border: var(--border-width) solid var(--color-marigold);
+  border-radius: var(--border-radius);
+  transition: opacity 0.15s ease;
+}
+
+.btn-start:hover {
+  opacity: 0.92;
+}
+
+.landing-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arch-graphic-container {
+  position: relative;
+  width: 340px;
+  height: 440px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arch-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.arch-path {
+  fill: none;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.arch-outer {
+  stroke: var(--color-marigold);
+  stroke-width: 2px;
+  animation: drawArch 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
+}
+
+.arch-middle {
+  stroke: var(--color-rani-pink);
+  stroke-width: 2px;
+  animation: drawArch 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.45s forwards;
+}
+
+.arch-inner {
+  stroke: var(--color-peacock-teal);
+  stroke-width: 2px;
+  animation: drawArch 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.75s forwards;
+}
+
+.arch-glow {
+  fill: none;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  opacity: 0.25;
+}
+
+.arch-glow-outer {
+  stroke: var(--color-marigold);
+  stroke-width: 8px;
+  animation: drawArch 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
+}
+
+.arch-glow-middle {
+  stroke: var(--color-rani-pink);
+  stroke-width: 8px;
+  animation: drawArch 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.45s forwards;
+}
+
+.arch-glow-inner {
+  stroke: var(--color-peacock-teal);
+  stroke-width: 8px;
+  animation: drawArch 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.75s forwards;
+}
+
+.arch-glow-group {
+  animation: glowPulse 5s ease-in-out infinite;
+}
+
+.arch-fill {
+  opacity: 0;
+  animation: fillFadeIn 0.8s ease-out 0.9s forwards, glowPulse 5s ease-in-out 1.7s infinite;
+}
+
+.card-wrapper {
+  position: absolute;
+  opacity: 0;
+  z-index: 2;
+}
+
+.card-1-wrapper {
+  top: 130px;
+  left: -28px;
+  animation: cardEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.35s forwards;
+}
+
+.card-2-wrapper {
+  bottom: 85px;
+  right: -24px;
+  animation: cardEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards;
+}
+
+.card-inner {
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 0.875rem 1.125rem;
+  box-shadow: none;
+}
+
+.card-1-inner {
+  width: 175px;
+  animation: cardFloat1 6s ease-in-out 1.95s infinite;
+}
+
+.card-2-inner {
+  animation: cardFloat2 6s ease-in-out 2.1s infinite;
+}
+
+.card-label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.card-value {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 0.65rem;
+}
+
+.budget-bar {
+  display: flex;
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+  gap: 2px;
+}
+
+.bar-segment {
+  height: 100%;
+}
+
+.bar-marigold {
+  background-color: var(--color-marigold);
+  width: 50%;
+}
+
+.bar-pink {
+  background-color: var(--color-rani-pink);
+  width: 30%;
+}
+
+.bar-teal {
+  background-color: var(--color-peacock-teal);
+  width: 20%;
+}
+
+.card-venue-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.venue-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-marigold);
+  flex-shrink: 0;
+}
+
+.venue-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.venue-time {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 0.2rem;
+}
+
+.bottom-strip {
+  border-top: var(--border-width) solid var(--color-border);
+  overflow: hidden;
+  width: 100%;
+  padding: 1.125rem 0;
+  background-color: var(--color-bg);
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: tickerScroll 30s linear infinite;
+}
+
+.ticker-group {
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+  padding-right: 2.25rem;
+  flex-shrink: 0;
+}
+
+.ticker-item {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.ticker-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.dot-marigold {
+  background-color: var(--color-marigold);
+}
+
+.dot-pink {
+  background-color: var(--color-rani-pink);
+}
+
+.dot-teal {
+  background-color: var(--color-peacock-teal);
+}
+
+@keyframes lineRise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drawArch {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes fillFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardFloat1 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes cardFloat2 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@keyframes tickerScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 960px) {
+  .landing-main {
+    grid-template-columns: 1fr;
+    padding: 2.5rem 1.5rem;
+    gap: 3.5rem;
+  }
+
+  .landing-right {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .card-1-wrapper {
+    left: 0;
+  }
+
+  .card-2-wrapper {
+    right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-line {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .arch-path,
+  .arch-glow {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+
+  .arch-glow-group,
+  .arch-fill {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  .card-wrapper,
+  .card-inner {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .ticker-track {
+    animation: none !important;
+  }
+}

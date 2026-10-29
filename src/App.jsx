@@ -1,9 +1,5 @@
-function App() {
-  return (
-    <div>
-      <h1>Utsav AI - Event Planner</h1>
-    </div>
-  )
-}
+import Landing from './components/Landing.jsx'
 
-export default App
+export default function App() {
+  return <Landing />
+}
