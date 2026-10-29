@@ -9,7 +9,15 @@ const tickerItems = [
   { name: 'Community fairs', dotClass: 'dot-teal' },
 ]
 
-export default function Landing() {
+export default function Landing({ onStart, startBtnRef }) {
+  const handleStart = (e) => {
+    if (!onStart) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = Math.round(rect.left + rect.width / 2)
+    const y = Math.round(rect.top + rect.height / 2)
+    onStart({ x, y })
+  }
+
   return (
     <div className="landing-page">
       <main className="landing-main">
@@ -26,7 +34,12 @@ export default function Landing() {
             split, a countdown timeline and a vendor checklist.
           </p>
           <div>
-            <button type="button" className="btn-start">
+            <button
+              ref={startBtnRef}
+              type="button"
+              className="btn-start"
+              onClick={handleStart}
+            >
               Start planning
             </button>
           </div>

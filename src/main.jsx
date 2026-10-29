@@ -6,6 +6,7 @@ import '@fontsource/dm-sans/400.css'
 import '@fontsource/dm-sans/500.css'
 import './styles/theme.css'
 import './styles/landing.css'
+import './styles/dashboard.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
