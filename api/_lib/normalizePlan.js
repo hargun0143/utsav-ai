@@ -84,6 +84,7 @@ export function normalizePlan(rawText, value, today = new Date()) {
   const categories = rawCategories.map((c) => ({
     name: clip(requireString(c.name, 'category name'), MAX_SHORT),
     amount: requirePositiveNumber(c.amount, 'category amount'),
+    note: clip(c.note != null ? String(c.note) : '', MAX_SHORT),
   }))
 
   const rawTotal = categories.reduce((sum, c) => sum + c.amount, 0)

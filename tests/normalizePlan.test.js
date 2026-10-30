@@ -90,6 +90,24 @@ describe('normalizePlan', () => {
     })
   })
 
+  it('keeps and clips optional note on each budget category, defaulting to empty string', () => {
+    const raw = JSON.stringify(makePlan({
+      budget: {
+        categories: [
+          { name: 'Cat1', amount: 100, note: '  Palace and lawn  ' },
+          { name: 'Cat2', amount: 100, note: 'N'.repeat(250) },
+          { name: 'Cat3', amount: 100 },
+          { name: 'Cat4', amount: 100, note: null },
+        ],
+      },
+    }))
+    const plan = normalizePlan(raw, VALUE, TODAY)
+    assert.equal(plan.budget.categories[0].note, 'Palace and lawn')
+    assert.equal(plan.budget.categories[1].note, 'N'.repeat(200))
+    assert.equal(plan.budget.categories[2].note, '')
+    assert.equal(plan.budget.categories[3].note, '')
+  })
+
   it('strips Markdown code fences from the response', () => {
     const json = JSON.stringify(makePlan())
     const fenced = '```json\n' + json + '\n```'
