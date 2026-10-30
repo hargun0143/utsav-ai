@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { formatRupees } from '../utils/format.js'
+import PlanDetails from './PlanDetails.jsx'
 
 export default function ResultsPanel({ status, plan, error, onRetry }) {
   const headingRef = useRef(null)
@@ -78,6 +79,8 @@ export default function ResultsPanel({ status, plan, error, onRetry }) {
             <span className="metric-value">{formatRupees(meta.costPerGuest)}</span>
           </div>
         </div>
+        
+        <PlanDetails plan={plan} />
 
         <p className="plan-disclaimer">
           Drafted by Gemini. Estimates only, so confirm prices with real vendors.
