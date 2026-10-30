@@ -12,7 +12,7 @@ async function callModelOnce({ model, apiKey, systemText, userText }) {
   const body = {
     systemInstruction: { parts: [{ text: systemText }] },
     contents: [{ role: 'user', parts: [{ text: userText }] }],
-    generationConfig: { responseMimeType: 'application/json', temperature: 0.7 },
+        generationConfig: { responseMimeType: 'application/json', temperature: 0.7, thinkingConfig: { thinkingLevel: 'low' } },
   }
 
   const res = await fetch(url, {

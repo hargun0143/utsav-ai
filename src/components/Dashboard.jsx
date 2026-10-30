@@ -1,4 +1,10 @@
+import { usePlan } from '../hooks/usePlan.js'
+import PlannerForm from './PlannerForm.jsx'
+import ResultsPanel from './ResultsPanel.jsx'
+
 export default function Dashboard({ onHome, headingRef }) {
+  const { status, plan, error, fieldErrors, generate, retry } = usePlan()
+
   return (
     <div className="dashboard-content">
       <header className="dashboard-header">
@@ -12,7 +18,25 @@ export default function Dashboard({ onHome, headingRef }) {
         <h1 ref={headingRef} tabIndex={-1} className="dashboard-title">
           Your planner
         </h1>
-        <p className="dashboard-description">Planner coming next.</p>
+
+        <div className="dashboard-grid">
+          <aside className="form-column">
+            <PlannerForm
+              status={status}
+              onSubmit={generate}
+              serverFieldErrors={fieldErrors}
+            />
+          </aside>
+
+          <section className="results-column">
+            <ResultsPanel
+              status={status}
+              plan={plan}
+              error={error}
+              onRetry={retry}
+            />
+          </section>
+        </div>
       </main>
     </div>
   )
