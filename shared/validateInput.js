@@ -8,7 +8,7 @@ const MAX_VIBE_LEN = 200
 const MAX_YEARS_AHEAD = 5
 
 function stripControl(s) {
-  return s.replace(/[\x00-\x1f\x7f]/g, '')
+  return s.replace(/\p{Cc}/gu, '')
 }
 
 function isValidDateString(s) {
@@ -51,13 +51,8 @@ export function validateInput(raw, today = new Date()) {
   }
 
   const guests = toNumber(raw.guests)
-  if (!Number.isFinite(guests) || !Number.isInteger(guests) || guests < MIN_GUESTS || guests > MAX_GUESTS) {
-    const rounded = Math.round(guests)
-    if (Number.isFinite(guests) && rounded >= MIN_GUESTS && rounded <= MAX_GUESTS && Number.isInteger(rounded)) {
-      errors.guests = `Guest count must be a whole number between ${MIN_GUESTS} and ${MAX_GUESTS}`
-    } else {
-      errors.guests = `Guest count must be a whole number between ${MIN_GUESTS} and ${MAX_GUESTS}`
-    }
+  if (!Number.isInteger(guests) || guests < MIN_GUESTS || guests > MAX_GUESTS) {
+    errors.guests = `Guest count must be a whole number between ${MIN_GUESTS} and ${MAX_GUESTS}`
   } else {
     value.guests = guests
   }

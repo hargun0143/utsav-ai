@@ -7,17 +7,16 @@ const GAP = 2
 
 export default function BudgetBreakdown({ categories }) {
   const total = categories.reduce((sum, category) => sum + category.amount, 0)
-  let offset = 0
 
   const segments = categories.map((category, index) => {
+    const priorSum = categories.slice(0, index).reduce((sum, c) => sum + c.amount, 0)
     const length = (category.amount / total) * CIRCUMFERENCE
-    const segment = {
+    const offset = -(priorSum / total) * CIRCUMFERENCE
+    return {
       color: PALETTE[index % PALETTE.length],
       dash: `${Math.max(length - GAP, 0)} ${CIRCUMFERENCE}`,
-      offset: -offset,
+      offset,
     }
-    offset += length
-    return segment
   })
 
   return (

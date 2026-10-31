@@ -1,3 +1,5 @@
+import { daysUntilEvent } from '../../shared/dates.js'
+
 class InvalidPlanError extends Error {
   constructor(message) {
     super(message)
@@ -32,13 +34,6 @@ function requireArray(val, label, min, max) {
     throw new InvalidPlanError(`${label} must have ${min} to ${max} items`)
   }
   return val
-}
-
-function daysUntilEvent(today, dateStr) {
-  const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-  const [y, m, d] = dateStr.split('-').map(Number)
-  const eventDate = new Date(y, m - 1, d)
-  return Math.round((eventDate - todayStart) / (1000 * 60 * 60 * 24))
 }
 
 function formatDate(eventDateStr, daysBefore) {
@@ -134,13 +129,12 @@ export function normalizePlan(rawText, value, today = new Date()) {
     description: clip(requireString(idea.description, 'idea description'), MAX_LONG),
   }))
 
-  const dUntil = daysUntilEvent(today, value.date)
   const meta = {
     eventType: value.eventType,
     guests: value.guests,
     city: value.city,
     date: value.date,
-    daysUntilEvent: dUntil,
+    daysUntilEvent: maxDays,
     costPerGuest: Math.round(targetBudget / value.guests),
   }
 

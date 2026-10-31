@@ -34,7 +34,8 @@ describe('validateInput', () => {
   })
 
   it('defaults vibe to empty string when omitted', () => {
-    const { vibe, ...noVibe } = VALID_INPUT
+    const noVibe = { ...VALID_INPUT }
+    delete noVibe.vibe
     const result = validateInput(noVibe, TODAY)
     assert.equal(result.valid, true)
     assert.equal(result.value.vibe, '')

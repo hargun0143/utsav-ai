@@ -1,3 +1,5 @@
+import { daysUntilEvent } from '../../shared/dates.js'
+
 const SYSTEM_TEXT = `You are Utsav, an expert event planner for celebrations in India: weddings, birthdays and community events. You turn a few details into a practical, realistic plan.
 
 Rules:
@@ -14,13 +16,6 @@ Rules:
 - Reply with JSON only, no other text, in exactly this shape:
 {"title": string, "summary": string (2 to 3 sentences), "budget": {"categories": [{"name": string, "amount": number, "note": string}]}, "timeline": [{"daysBefore": number, "task": string}], "vendors": [{"type": string, "confirm": string}], "ideas": [{"title": string, "description": string}]}
 - Use 5 to 7 budget categories, 8 to 12 timeline items, 6 to 9 vendor types and 5 to 6 ideas.`
-
-function daysUntilEvent(today, dateStr) {
-  const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-  const [y, m, d] = dateStr.split('-').map(Number)
-  const eventDate = new Date(y, m - 1, d)
-  return Math.round((eventDate - todayStart) / (1000 * 60 * 60 * 24))
-}
 
 export function buildPrompt(value, today = new Date()) {
   const days = daysUntilEvent(today, value.date)
