@@ -73,7 +73,7 @@ export function normalizePlan(rawText, value, today = new Date()) {
   }
   const rawCategories = requireArray(parsed.budget.categories, 'budget.categories', 4, 8)
   const rawTimeline = requireArray(parsed.timeline, 'timeline', 4, 14)
-  const rawVendors = requireArray(parsed.vendors, 'vendors', 4, 12)
+  const rawVendors = requireArray(parsed.vendors, 'vendors', 3, 12)
   const rawIdeas = requireArray(parsed.ideas, 'ideas', 3, 8)
 
   const categories = rawCategories.map((c) => ({

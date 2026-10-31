@@ -9,6 +9,7 @@ Rules:
 - Every vendor type you list must be covered by a budget category, and every budget category must have a short note explaining what it covers.
 - Timeline: work backward from the event date, using the number of days until the event. If the event is sooner than a typical lead time, compress the timeline and say so in the summary instead of inventing impossible dates.
 - Vendors: name the types of vendor needed and what to confirm with each. Never invent business names, phone numbers or prices for specific vendors.
+- Always list at least 5 vendor types, even for very small budgets. For tight budgets, say in the 'confirm' text which tasks can be done DIY or with free help.
 - Ideas: make them specific to the event type, the vibe and the city, and affordable within the budget.
 - For weddings, include the functions that fit the budget and guest count (for example mehendi, sangeet, ceremony, reception).
 - Be honest. If the budget looks too low for the number of guests, say so in the summary and prioritise the essentials.

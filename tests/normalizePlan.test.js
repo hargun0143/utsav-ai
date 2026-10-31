@@ -181,6 +181,18 @@ describe('normalizePlan', () => {
     )
   })
 
+  it('accepts a plan with exactly 3 vendors', () => {
+    const plan = makePlan({
+      vendors: [
+        { type: 'Catering', confirm: 'Menu and count' },
+        { type: 'Venue', confirm: 'Timings and deposit' },
+        { type: 'Photography', confirm: 'Hours and deliverables' },
+      ],
+    })
+    const result = normalizePlan(JSON.stringify(plan), VALUE, TODAY)
+    assert.equal(result.vendors.length, 3)
+  })
+
   it('throws InvalidPlanError for missing ideas', () => {
     const plan = makePlan()
     delete plan.ideas
