@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { validateInput } from '../../shared/validateInput.js'
 import { CITIES } from '../data/cities.js'
 import EventTypeSelector from './EventTypeSelector.jsx'
+import FormField from './FormField.jsx'
 
 function getTodayString() {
   const t = new Date()
@@ -57,7 +58,7 @@ export default function PlannerForm({ status, onSubmit, serverFieldErrors = {} }
     const result = validateInput(formData)
     if (!result.valid) {
       setClientErrors(result.errors)
-      const fieldOrder = ['budget', 'guests', 'date', 'city', 'vibe']
+      const fieldOrder = Object.keys(fieldRefs)
       for (const field of fieldOrder) {
         if (result.errors[field] && fieldRefs[field]?.current) {
           fieldRefs[field].current.focus()
@@ -80,127 +81,74 @@ export default function PlannerForm({ status, onSubmit, serverFieldErrors = {} }
         onChange={(val) => handleChange('eventType', val)}
       />
 
-      <div className="form-group">
-        <label htmlFor="planner-budget" className="form-label">
-          Budget (₹)
-        </label>
-        <input
-          ref={budgetRef}
-          id="planner-budget"
-          type="number"
-          min="1000"
-          value={formData.budget}
-          onChange={(e) => handleChange('budget', e.target.value)}
-          className={`form-input ${errors.budget ? 'is-invalid' : ''}`}
-          aria-invalid={Boolean(errors.budget)}
-          aria-describedby={errors.budget ? 'budget-error' : undefined}
-          disabled={isLoading}
-        />
-        {errors.budget && (
-          <span id="budget-error" className="form-error" role="alert">
-            {errors.budget}
-          </span>
-        )}
-      </div>
+      <FormField
+        id="planner-budget"
+        label="Budget (₹)"
+        type="number"
+        min="1000"
+        value={formData.budget}
+        onChange={(e) => handleChange('budget', e.target.value)}
+        error={errors.budget}
+        inputRef={budgetRef}
+        disabled={isLoading}
+      />
 
-      <div className="form-group">
-        <label htmlFor="planner-guests" className="form-label">
-          Guests
-        </label>
-        <input
-          ref={guestsRef}
-          id="planner-guests"
-          type="number"
-          min="1"
-          value={formData.guests}
-          onChange={(e) => handleChange('guests', e.target.value)}
-          className={`form-input ${errors.guests ? 'is-invalid' : ''}`}
-          aria-invalid={Boolean(errors.guests)}
-          aria-describedby={errors.guests ? 'guests-error' : undefined}
-          disabled={isLoading}
-        />
-        {errors.guests && (
-          <span id="guests-error" className="form-error" role="alert">
-            {errors.guests}
-          </span>
-        )}
-      </div>
+      <FormField
+        id="planner-guests"
+        label="Guests"
+        type="number"
+        min="1"
+        value={formData.guests}
+        onChange={(e) => handleChange('guests', e.target.value)}
+        error={errors.guests}
+        inputRef={guestsRef}
+        disabled={isLoading}
+      />
 
-      <div className="form-group">
-        <label htmlFor="planner-date" className="form-label">
-          Event date
-        </label>
-        <input
-          ref={dateRef}
-          id="planner-date"
-          type="date"
-          min={todayStr}
-          value={formData.date}
-          onChange={(e) => handleChange('date', e.target.value)}
-          className={`form-input ${errors.date ? 'is-invalid' : ''}`}
-          aria-invalid={Boolean(errors.date)}
-          aria-describedby={errors.date ? 'date-error' : undefined}
-          disabled={isLoading}
-        />
-        {errors.date && (
-          <span id="date-error" className="form-error" role="alert">
-            {errors.date}
-          </span>
-        )}
-      </div>
+      <FormField
+        id="planner-date"
+        label="Event date"
+        type="date"
+        min={todayStr}
+        value={formData.date}
+        onChange={(e) => handleChange('date', e.target.value)}
+        error={errors.date}
+        inputRef={dateRef}
+        disabled={isLoading}
+      />
 
-      <div className="form-group">
-        <label htmlFor="planner-city" className="form-label">
-          City
-        </label>
-        <input
-          ref={cityRef}
-          id="planner-city"
-          type="text"
-          list="city-options"
-          autoComplete="off"
-          maxLength={80}
-          value={formData.city}
-          onChange={(e) => handleChange('city', e.target.value)}
-          className={`form-input ${errors.city ? 'is-invalid' : ''}`}
-          aria-invalid={Boolean(errors.city)}
-          aria-describedby={errors.city ? 'city-error' : undefined}
-          disabled={isLoading}
-        />
+      <FormField
+        id="planner-city"
+        label="City"
+        type="text"
+        list="city-options"
+        autoComplete="off"
+        maxLength={80}
+        value={formData.city}
+        onChange={(e) => handleChange('city', e.target.value)}
+        error={errors.city}
+        inputRef={cityRef}
+        disabled={isLoading}
+      >
         <datalist id="city-options">
           {CITIES.map((city) => (
             <option key={city} value={city} />
           ))}
         </datalist>
-        {errors.city && (
-          <span id="city-error" className="form-error" role="alert">
-            {errors.city}
-          </span>
-        )}
-      </div>
+      </FormField>
 
-      <div className="form-group">
-        <label htmlFor="planner-vibe" className="form-label">
-          Theme or vibe (optional)
-        </label>
-        <textarea
-          ref={vibeRef}
-          id="planner-vibe"
-          maxLength={200}
-          rows={3}
-          value={formData.vibe}
-          onChange={(e) => handleChange('vibe', e.target.value)}
-          className={`form-textarea ${errors.vibe ? 'is-invalid' : ''}`}
-          aria-invalid={Boolean(errors.vibe)}
-          aria-describedby={errors.vibe ? 'vibe-error' : undefined}
-          disabled={isLoading}
-        />
-        {errors.vibe && (
-          <span id="vibe-error" className="form-error" role="alert">
-            {errors.vibe}
-          </span>
-        )}
-      </div>
+      <FormField
+        id="planner-vibe"
+        label="Theme or vibe (optional)"
+        as="textarea"
+        maxLength={200}
+        rows={3}
+        value={formData.vibe}
+        onChange={(e) => handleChange('vibe', e.target.value)}
+        error={errors.vibe}
+        inputRef={vibeRef}
+        disabled={isLoading}
+      />
 
       <button
         type="submit"
