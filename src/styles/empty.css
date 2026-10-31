@@ -1,0 +1,60 @@
+.empty-state {
+  --es-text: #f4efe8;
+  --es-muted: #b8afa3;
+  --es-marigold: #f2a73b;
+  --es-border: #2a2622;
+  padding-top: 8px;
+}
+
+.empty-title {
+  max-width: 18ch;
+  margin: 0 0 14px;
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--es-text);
+}
+
+.empty-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--es-marigold);
+}
+
+.empty-hint {
+  max-width: 52ch;
+  margin: 0;
+  line-height: 1.6;
+  color: var(--es-muted);
+}
+
+.empty-caption {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin: 36px 0 18px;
+  font-size: 0.85rem;
+  color: var(--es-muted);
+}
+
+.empty-caption::after {
+  flex: 1;
+  height: 1px;
+  content: '';
+  background: var(--es-border);
+}
+
+.empty-ghost {
+  max-height: 460px;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.7;
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 98%);
+  mask-image: linear-gradient(to bottom, #000 40%, transparent 98%);
+}
+
+.empty-ghost .plan-details {
+  margin-top: 0;
+}

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { formatRupees } from '../utils/format.js'
 import PlanDetails from './PlanDetails.jsx'
+import EmptyState from './EmptyState.jsx'
 
 export default function ResultsPanel({ status, plan, error, onRetry }) {
   const headingRef = useRef(null)
@@ -12,12 +13,7 @@ export default function ResultsPanel({ status, plan, error, onRetry }) {
   }, [status, plan])
 
   if (status === 'idle') {
-    return (
-      <div className="panel-card panel-idle">
-        <p className="panel-title">Your plan will appear here.</p>
-        <p className="panel-hint">Fill in the details and press Generate plan.</p>
-      </div>
-    )
+  return <EmptyState />
   }
 
   if (status === 'loading') {

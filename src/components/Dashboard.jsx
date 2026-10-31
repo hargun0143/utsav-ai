@@ -1,12 +1,15 @@
 import { usePlan } from '../hooks/usePlan.js'
 import PlannerForm from './PlannerForm.jsx'
 import ResultsPanel from './ResultsPanel.jsx'
+import PlasmaBackground from './PlasmaBackground.jsx'
+
 
 export default function Dashboard({ onHome, headingRef }) {
   const { status, plan, error, fieldErrors, generate, retry } = usePlan()
 
   return (
     <div className="dashboard-content">
+      <PlasmaBackground />
       <header className="dashboard-header">
         <span className="wordmark">Utsav</span>
         <button type="button" className="btn-home" onClick={onHome}>
