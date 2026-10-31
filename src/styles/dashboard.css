@@ -114,9 +114,13 @@
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
   padding: 1.5rem;
-  position: sticky;
-  top: 24px;
+}
 
+@media (min-width: 961px) {
+  .form-column {
+    position: sticky;
+    top: 24px;
+  }
 }
 
 .planner-form {

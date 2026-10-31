@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { validateInput } from '../../shared/validateInput.js'
+import { CITIES } from '../data/cities.js'
 import EventTypeSelector from './EventTypeSelector.jsx'
 
 function getTodayString() {
@@ -156,6 +157,8 @@ export default function PlannerForm({ status, onSubmit, serverFieldErrors = {} }
           ref={cityRef}
           id="planner-city"
           type="text"
+          list="city-options"
+          autoComplete="off"
           maxLength={80}
           value={formData.city}
           onChange={(e) => handleChange('city', e.target.value)}
@@ -164,6 +167,11 @@ export default function PlannerForm({ status, onSubmit, serverFieldErrors = {} }
           aria-describedby={errors.city ? 'city-error' : undefined}
           disabled={isLoading}
         />
+        <datalist id="city-options">
+          {CITIES.map((city) => (
+            <option key={city} value={city} />
+          ))}
+        </datalist>
         {errors.city && (
           <span id="city-error" className="form-error" role="alert">
             {errors.city}
