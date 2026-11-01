@@ -109,6 +109,11 @@ function createProgram(gl) {
   return null
 }
 
+/**
+ * Initializes and renders a full-screen WebGL plasma shader background animation.
+ * @param {HTMLCanvasElement} canvas - Target canvas element to render into.
+ * @returns {function(): void} Cleanup function to stop animation and release WebGL resources.
+ */
 export function startPlasma(canvas) {
   const gl = canvas.getContext('webgl', {
     alpha: false,

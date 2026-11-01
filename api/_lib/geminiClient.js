@@ -1,9 +1,15 @@
+// Client library for calling Google Gemini API models with retry and fallback handling.
 export class GeminiUnavailableError extends Error {
   constructor(message = 'Gemini service is unavailable') {
     super(message)
     this.name = 'GeminiUnavailableError'
   }
 }
+
+const MAX_ATTEMPTS_PER_MODEL = 3
+const RETRY_DELAYS_MS = [1000, 2000]
+const HTTP_RATE_LIMITED = 429
+const RETRYABLE_HTTP_STATUSES = new Set([500, 503, 504])
 
 const defaultSleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -50,6 +56,15 @@ async function callModelOnce({ model, apiKey, systemText, userText }) {
   return text
 }
 
+/**
+ * Calls Gemini models with exponential retry and optional fallback model support.
+ * @param {object} options - Call options.
+ * @param {string} options.systemText - System instructions for the model.
+ * @param {string} options.userText - User prompt text.
+ * @param {Record<string, string>} [options.env=process.env] - Environment variables object.
+ * @param {function(number): Promise<void>} [options.sleep=defaultSleep] - Sleep function for retry delays.
+ * @returns {Promise<string>} The generated text response.
+ */
 export async function generatePlanText({ systemText, userText, env = process.env, sleep = defaultSleep }) {
   const apiKey = env.GEMINI_API_KEY
   const primaryModel = env.GEMINI_MODEL
@@ -64,14 +79,12 @@ export async function generatePlanText({ systemText, userText, env = process.env
     models.push(fallbackModel.trim())
   }
 
-  const RETRY_DELAYS = [1000, 2000]
-
   for (let mIdx = 0; mIdx < models.length; mIdx++) {
     const model = models[mIdx]
     const isPrimary = mIdx === 0
     let attempt = 0
 
-    while (attempt < 3) {
+    while (attempt < MAX_ATTEMPTS_PER_MODEL) {
       try {
         const text = await callModelOnce({ model, apiKey, systemText, userText })
         return text
@@ -79,18 +92,18 @@ export async function generatePlanText({ systemText, userText, env = process.env
         attempt++
         const status = err.status
 
-        if (status === 429) {
+        if (status === HTTP_RATE_LIMITED) {
           if (isPrimary && models.length > 1) {
             break
           }
           throw new GeminiUnavailableError('Rate limited')
         }
 
-        const isRetryableStatus = status === 500 || status === 503 || status === 504
+        const isRetryableStatus = RETRYABLE_HTTP_STATUSES.has(status)
         const isNetworkError = !status
 
-        if ((isRetryableStatus || isNetworkError) && attempt < 3) {
-          await sleep(RETRY_DELAYS[attempt - 1])
+        if ((isRetryableStatus || isNetworkError) && attempt < MAX_ATTEMPTS_PER_MODEL) {
+          await sleep(RETRY_DELAYS_MS[attempt - 1])
           continue
         }
 

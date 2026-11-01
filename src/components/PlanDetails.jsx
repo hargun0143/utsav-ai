@@ -4,6 +4,12 @@ import VendorChecklist from './VendorChecklist.jsx'
 import IdeasGrid from './IdeasGrid.jsx'
 import '../styles/results.css'
 
+/**
+ * Detailed view of the generated plan combining budget, timeline, vendors, and ideas.
+ * @param {object} props - Component props.
+ * @param {object} props.plan - The full generated event plan.
+ * @returns {import('react').JSX.Element}
+ */
 export default function PlanDetails({ plan }) {
   return (
     <div className="plan-details">

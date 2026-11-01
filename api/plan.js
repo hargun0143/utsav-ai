@@ -1,3 +1,4 @@
+// Serverless API endpoint for validating input and generating an event plan.
 import { validateInput } from '../shared/validateInput.js'
 import { buildPrompt } from './_lib/buildPrompt.js'
 import { normalizePlan } from './_lib/normalizePlan.js'
@@ -5,6 +6,12 @@ import { generatePlanText, GeminiUnavailableError } from './_lib/geminiClient.js
 
 export const config = { maxDuration: 60 }
 
+/**
+ * Handles HTTP requests to generate an event plan.
+ * @param {import('http').IncomingMessage & { method: string, body: any }} req - The incoming HTTP request.
+ * @param {import('http').ServerResponse & { status: Function, json: Function, setHeader: Function }} res - The outgoing HTTP response.
+ * @returns {Promise<void>}
+ */
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store')
   res.setHeader('Content-Type', 'application/json; charset=utf-8')

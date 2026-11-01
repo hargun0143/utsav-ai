@@ -1,3 +1,15 @@
+/**
+ * Reusable form control wrapper with label, error message, and accessibility attributes.
+ * @param {object} props - Component props.
+ * @param {string} props.id - HTML input element ID.
+ * @param {string} props.label - Label text for the field.
+ * @param {string} [props.error] - Validation error message to display.
+ * @param {import('react').RefObject<HTMLElement>} [props.inputRef] - Ref passed to control element.
+ * @param {'input' | 'textarea'} [props.as='input'] - Control component element type.
+ * @param {import('react').ReactNode} [props.children] - Additional child nodes (e.g., datalist).
+ * @param {string} [props.className=''] - Additional CSS classes.
+ * @returns {import('react').JSX.Element}
+ */
 export default function FormField({
   id,
   label,

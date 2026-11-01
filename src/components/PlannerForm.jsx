@@ -12,6 +12,14 @@ function getTodayString() {
   return `${y}-${m}-${d}`
 }
 
+/**
+ * Interactive form for capturing event specifications and initiating plan generation.
+ * @param {object} props - Component props.
+ * @param {'idle' | 'loading' | 'success' | 'error'} props.status - Current generation request status.
+ * @param {function(object): void} props.onSubmit - Submission callback receiving validated values.
+ * @param {Record<string, string>} [props.serverFieldErrors={}] - Field-specific errors returned from the server.
+ * @returns {import('react').JSX.Element}
+ */
 export default function PlannerForm({ status, onSubmit, serverFieldErrors = {} }) {
   const [formData, setFormData] = useState({
     eventType: 'wedding',

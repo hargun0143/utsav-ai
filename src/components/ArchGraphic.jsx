@@ -1,3 +1,7 @@
+/**
+ * Renders decorative vector SVG arches for the landing page hero section.
+ * @returns {import('react').JSX.Element}
+ */
 export default function ArchGraphic() {
   return (
     <div className="arch-graphic-container">

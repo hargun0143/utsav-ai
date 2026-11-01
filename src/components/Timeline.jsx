@@ -7,6 +7,12 @@ function whenLabel(daysBefore) {
   return `${daysBefore} days before`
 }
 
+/**
+ * Sequential milestone countdown timeline leading up to celebration day.
+ * @param {object} props - Component props.
+ * @param {Array<{ daysBefore: number, date: string, task: string }>} props.items - Timeline milestone items.
+ * @returns {import('react').JSX.Element}
+ */
 export default function Timeline({ items }) {
   return (
     <section className="plan-card" aria-labelledby="timeline-heading">

@@ -3,6 +3,15 @@ import { formatRupees } from '../utils/format.js'
 import PlanDetails from './PlanDetails.jsx'
 import EmptyState from './EmptyState.jsx'
 
+/**
+ * Results container presenting empty, loading, error, or generated plan states.
+ * @param {object} props - Component props.
+ * @param {'idle' | 'loading' | 'success' | 'error'} props.status - Current generation request status.
+ * @param {object | null} props.plan - Generated plan data object when status is 'success'.
+ * @param {{ message: string, retryable: boolean } | null} props.error - Error details when status is 'error'.
+ * @param {function(): void} props.onRetry - Callback to retry a failed generation request.
+ * @returns {import('react').JSX.Element}
+ */
 export default function ResultsPanel({ status, plan, error, onRetry }) {
   const headingRef = useRef(null)
 

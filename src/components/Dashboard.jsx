@@ -3,7 +3,13 @@ import PlannerForm from './PlannerForm.jsx'
 import ResultsPanel from './ResultsPanel.jsx'
 import PlasmaBackground from './PlasmaBackground.jsx'
 
-
+/**
+ * Main dashboard layout featuring header, planner form, and results panel.
+ * @param {object} props - Component props.
+ * @param {function(): void} props.onHome - Callback to transition back to the landing view.
+ * @param {import('react').RefObject<HTMLHeadingElement>} props.headingRef - Ref passed to heading for reveal focus management.
+ * @returns {import('react').JSX.Element}
+ */
 export default function Dashboard({ onHome, headingRef }) {
   const { status, plan, error, fieldErrors, generate, retry } = usePlan()
 

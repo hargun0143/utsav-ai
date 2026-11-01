@@ -1,3 +1,4 @@
+// Builds system and user prompts for the Gemini event planning API.
 import { daysUntilEvent } from '../../shared/dates.js'
 
 const SYSTEM_TEXT = `You are Utsav, an expert event planner for celebrations in India: weddings, birthdays and community events. You turn a few details into a practical, realistic plan.
@@ -18,6 +19,12 @@ Rules:
 {"title": string, "summary": string (2 to 3 sentences), "budget": {"categories": [{"name": string, "amount": number, "note": string}]}, "timeline": [{"daysBefore": number, "task": string}], "vendors": [{"type": string, "confirm": string}], "ideas": [{"title": string, "description": string}]}
 - Use 5 to 7 budget categories, 8 to 12 timeline items, 6 to 9 vendor types and 5 to 6 ideas.`
 
+/**
+ * Builds the system and user prompts from validated event details.
+ * @param {object} value - Validated event input details.
+ * @param {Date} [today=new Date()] - Reference date for calculating lead time.
+ * @returns {{ systemText: string, userText: string }}
+ */
 export function buildPrompt(value, today = new Date()) {
   const days = daysUntilEvent(today, value.date)
   const vibe = value.vibe || 'none given'

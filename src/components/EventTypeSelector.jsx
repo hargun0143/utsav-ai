@@ -4,6 +4,13 @@ const OPTIONS = [
   { value: 'community', label: 'Community' },
 ]
 
+/**
+ * Segmented radio group selector for choosing celebration occasion types.
+ * @param {object} props - Component props.
+ * @param {'wedding' | 'birthday' | 'community'} props.value - Currently selected event type.
+ * @param {function(string): void} props.onChange - Selection change callback.
+ * @returns {import('react').JSX.Element}
+ */
 export default function EventTypeSelector({ value, onChange }) {
   return (
     <fieldset className="event-type-fieldset">

@@ -5,6 +5,12 @@ const RADIUS = 70
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS
 const GAP = 2
 
+/**
+ * Displays an SVG donut chart and itemized breakdown of event budget allocations.
+ * @param {object} props - Component props.
+ * @param {Array<{ name: string, amount: number, percent: number, note: string }>} props.categories - Budget categories.
+ * @returns {import('react').JSX.Element}
+ */
 export default function BudgetBreakdown({ categories }) {
   const total = categories.reduce((sum, category) => sum + category.amount, 0)
 

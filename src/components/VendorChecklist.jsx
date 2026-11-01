@@ -1,5 +1,11 @@
 import { useState } from 'react'
 
+/**
+ * Interactive checklist tracking booked vendors and booking progress.
+ * @param {object} props - Component props.
+ * @param {Array<{ type: string, confirm: string }>} props.vendors - Vendor specifications to confirm.
+ * @returns {import('react').JSX.Element}
+ */
 export default function VendorChecklist({ vendors }) {
   const [checked, setChecked] = useState(() => new Set())
 

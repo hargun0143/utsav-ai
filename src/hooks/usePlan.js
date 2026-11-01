@@ -1,5 +1,14 @@
 import { useState, useRef, useCallback } from 'react'
 
+const REQUEST_TIMEOUT_MS = 65000
+const HTTP_OK = 200
+const HTTP_BAD_REQUEST = 400
+const HTTP_SERVICE_UNAVAILABLE = 503
+
+/**
+ * Custom React hook for generating and managing plan requests and responses.
+ * @returns {{ status: 'idle' | 'loading' | 'success' | 'error', plan: object | null, error: { message: string, retryable: boolean } | null, fieldErrors: Record<string, string>, generate: function(object): Promise<void>, retry: function(): void }} Plan state and control actions.
+ */
 export function usePlan() {
   const [status, setStatus] = useState('idle')
   const [plan, setPlan] = useState(null)
@@ -18,7 +27,7 @@ export function usePlan() {
     setFieldErrors({})
 
     const controller = new AbortController()
-    const timer = setTimeout(() => controller.abort(), 65000)
+    const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
 
     try {
       const res = await fetch('/api/plan', {
@@ -30,7 +39,7 @@ export function usePlan() {
 
       clearTimeout(timer)
 
-      if (res.status === 200) {
+      if (res.status === HTTP_OK) {
         const data = await res.json()
         setPlan(data)
         statusRef.current = 'success'
@@ -38,7 +47,7 @@ export function usePlan() {
         return
       }
 
-      if (res.status === 400) {
+      if (res.status === HTTP_BAD_REQUEST) {
         const data = await res.json()
         setFieldErrors(data.fields || {})
         setError({
@@ -50,7 +59,7 @@ export function usePlan() {
         return
       }
 
-      if (res.status === 503) {
+      if (res.status === HTTP_SERVICE_UNAVAILABLE) {
         const data = await res.json().catch(() => ({}))
         setError({
           message: data.error || 'The AI service is busy right now. Please try again in a moment.',

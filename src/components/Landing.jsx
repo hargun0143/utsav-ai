@@ -9,6 +9,13 @@ const tickerItems = [
   { name: 'Community fairs', dotClass: 'dot-teal' },
 ]
 
+/**
+ * Landing view featuring hero copy, animated badge ticker, arch graphics, and enter action.
+ * @param {object} props - Component props.
+ * @param {function({ x: number, y: number }): void} props.onStart - Callback triggered with click coordinates to start reveal transition.
+ * @param {import('react').RefObject<HTMLButtonElement>} props.startBtnRef - Ref passed to start button for focus management.
+ * @returns {import('react').JSX.Element}
+ */
 export default function Landing({ onStart, startBtnRef }) {
   const handleStart = (e) => {
     if (!onStart) return

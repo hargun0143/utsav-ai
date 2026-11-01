@@ -1,5 +1,11 @@
 import { ACCENTS } from '../utils/palette.js'
 
+/**
+ * Grid list displaying creative ideas and suggestions for the celebration.
+ * @param {object} props - Component props.
+ * @param {Array<{ title: string, description: string }>} props.ideas - Creative ideas to render.
+ * @returns {import('react').JSX.Element}
+ */
 export default function IdeasGrid({ ideas }) {
   return (
     <section className="plan-card" aria-labelledby="ideas-heading">

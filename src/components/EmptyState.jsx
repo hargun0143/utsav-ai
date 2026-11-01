@@ -19,6 +19,10 @@ const SAMPLE_TIMELINE = [
   { daysBefore: 0, date: '2027-04-20', task: 'Celebrate' },
 ]
 
+/**
+ * Placeholder empty state showing a ghost preview of budget breakdown and timeline.
+ * @returns {import('react').JSX.Element}
+ */
 export default function EmptyState() {
   return (
     <div className="empty-state">
